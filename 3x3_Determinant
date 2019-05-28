@@ -8,6 +8,7 @@ int main()
     int i;
     int j;
     int k;
+    int l;
 
     int rows = 2;
     int cols = 2;
@@ -64,8 +65,10 @@ int main()
             }
             else
             {
-                matrix2x2[counter][0] = matrix[k][1];
-                matrix2x2[counter][1] = matrix[k][2];
+                for (l = 0; l < 2; ++l)
+                {
+                    matrix2x2[counter][l] = matrix[k][l+1];
+                }
                 counter = counter + 1;
             }
         }
