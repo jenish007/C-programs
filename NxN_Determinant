@@ -1,0 +1,130 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int determinant2x2();
+
+int main()
+{
+    int i;
+    int j;
+    int k;
+
+    int n;
+    int counter = 0;
+    int det2x2 = 0;
+    int det3x3 = 0;
+
+    printf("Enter the size of the matrix (n x n): ");
+    scanf("%i",&n);
+
+    printf("%i\n",n);
+
+    int matrix[n][n];
+    int matrix2x2[2][2];
+    int cofactors[n];
+    int store[n];
+    int sum[n];
+    int sign[n];
+
+
+
+    for (i = 0; i < n; ++i)
+    {
+        for (j = 0; j < n; ++j)
+        {
+            printf("Enter element in row %i and column %i: ",i+1,j+1);
+            scanf("%i",&matrix[i][j]);
+        }
+    }
+
+    printf("\n");
+
+    for (i = 0; i < n; ++i)
+    {
+        for (j = 0; j < n; ++j)
+        {
+            printf("%i \t",matrix[i][j]);
+        }
+        printf("\n");
+    }
+
+    printf("\n");
+
+
+    for (i = 0; i < 3; ++i)
+    {
+        cofactors[i] = matrix[i][0];
+        cofactors[i] = cofactors[i] * sign[i];
+        printf("The cofactors are: %i \t\n", cofactors[i]);
+    }
+
+    printf("\n");
+
+    for (i = 0; i < n; ++i)
+    {
+        for (k = 0; k < n; ++k)
+        {
+            if (k == i)
+            {
+                ;
+            }
+            else
+            {
+                matrix2x2[counter][0] = matrix[k][1];
+                matrix2x2[counter][1] = matrix[k][2];
+                counter = counter + 1;
+            }
+        }
+        printf("Submatrix: %i\n",i+1);
+        det2x2 = determinant2x2(matrix2x2,n,n);
+        store[i] = det2x2;
+        counter = 0;
+    }
+
+    printf("\n");
+
+    for (i = 0; i < n; ++i)
+    {
+        sum[i] = store[i] * cofactors[i];
+        printf("The sums are: %i \t\n", sum[i]);
+    }
+
+    for (i = 0; i < n; ++i)
+    {
+        det3x3 = det3x3 + sum[i];
+    }
+
+    printf("\n");
+
+    printf("The determinant of your 3x3 matrix is: %i\n",det3x3);
+}
+
+int determinant2x2(int *pmat, int r, int c)
+{
+    int i;
+    int j;
+    int mat[r][c];
+
+    for (i = 0; i < r; ++i)
+    {
+        for (j = 0; j < c; ++j)
+        {
+            mat[i][j] = *pmat;
+            pmat++;
+        }
+    }
+
+    int ad;
+    int bc;
+    int det;
+
+    ad = (mat[0][0]) * (mat[1][1]);
+    bc = (mat[0][1]) * (mat[1][0]);
+
+    det = ad - bc;
+    printf("The determinant is %i. \n",det);
+    printf("\n");
+
+    return det;
+
+}
